@@ -6,6 +6,7 @@ export default DS.Model.extend({
   type: DS.attr(),
   image: DS.attr(),
   bedrooms: DS.attr(),
+  reviews: DS.hasMany('review', { async: true })
 });
 
 // rental.js defines attributes of the rental model

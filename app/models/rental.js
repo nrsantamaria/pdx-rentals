@@ -7,3 +7,5 @@ export default DS.Model.extend({
   image: DS.attr(),
   bedrooms: DS.attr(),
 });
+
+// rental.js defines attributes of the rental model

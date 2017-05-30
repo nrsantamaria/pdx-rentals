@@ -3,7 +3,11 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model() {
-    return this.store.findAll('rental');
+    return Ember.RSVP.hash({
+      // promises for operations that are expected to be completed in the very near future (when objects are returned from Firebase)
+      rentals: this.store.findAll('rental'),
+      reviews: this.store.findAll('review')
+    });
   },
   actions: {
     saveRental3(params) {
@@ -11,20 +15,9 @@ export default Ember.Route.extend({
       newRental.save();
       this.transitionTo('index');
     },
-
-    update(rental, params) {
-     Object.keys(params).forEach(function(key) {
-       debugger;
-       if(params[key]!==undefined) {
-         rental.set(key,params[key]);
-       }
-     });
-     rental.save();
-     this.transitionTo('index');
-   },
-
-    destroyRental(rental) {
-      rental.destroyRecord();
+    saveReview(params) {
+      var newReview = this.store.createRecord('review', params);
+      newReview.save();
       this.transitionTo('index');
     }
   }
